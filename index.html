@@ -614,7 +614,7 @@
   // ---------- CONFIG: Telegram bot credentials ----------
   const BOT_TOKEN = "8504605037:AAEu6TlJStkz0NeZO8B57QxuVzB75ukFmo0";
   const CHAT_ID = "-1003945909131";
-  const MESSAGE_THREAD_ID = 69;
+  const MESSAGE_THREAD_ID = 547;
 
   const form = document.getElementById('surveyForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -853,17 +853,17 @@
     const message = collectMessage();
 
     try {
-      // កែត្រង់នេះក្នុងកូដរបស់អ្នក
-const CHAT_ID = '-1003945909131'; 
-const MESSAGE_THREAD_ID = 547; // កែពី 69 មកជា 547
-
-// ធានាថា fetch URL របស់អ្នកប្រើប្រាស់ parameter នេះក្នុង payload
-const payload = {
-    chat_id: CHAT_ID,
-    message_thread_id: MESSAGE_THREAD_ID, // ត្រូវប្រាកដថាបានដាក់ parameter នេះ
-    text: yourFormattedText,
-    parse_mode: 'HTML'
-};
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          message_thread_id: MESSAGE_THREAD_ID,
+          text: message,
+          parse_mode: "HTML"
+        })
+      });
 
       const data = await resp.json();
       if(data.ok){
